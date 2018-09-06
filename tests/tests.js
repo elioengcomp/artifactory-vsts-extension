@@ -335,7 +335,11 @@ describe("JFrog Artifactory VSTS Extension Tests", () => {
 });
 
 function runBuildCommand(command, buildName, buildNumber) {
-    execSync("jfrog rt " + command + "\"" + buildName + "\" " + buildNumber);
+    try {
+        execSync("jfrog rt " + command + " \"" + buildName + "\" " + buildNumber);
+    } catch (ex) {
+        assert.fail(ex.stdout);
+    }
 }
 
 /**
